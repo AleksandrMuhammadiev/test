@@ -1,0 +1,22 @@
+1. CreateAPIView - создание данных по POST - запросу
+2. ListAPIView - чтение списка данных по GET-запросу
+3. RetrieveAPIView - чтение конкретных данных(записи) по  GET-запросу
+4. DestroyAPIView - удаление данных (записи) по DELETE-запросу
+5. UpdateAPIView - изменение записи (данных) по PUT- или PATCH-запросу
+
+6. ListCreateAPIView - для чтения (по GET-запросу) и создание списка данных (по POST- запросу)
+7. RetrieveUpdateAPIView - чтение и изменение отдельной записи (GET- и POST- запросов
+8. RetrieveDestroyAPIView - чтение (GET-запрос) и удаление (DELETE-запрос) отдельной записи
+9. RetrieveUpdateDestroyAPIView - чтение, изменение и добавление, удаления отдельной записи
+    (GET-, PUT-, PATCH- и DELETE- запросы)
+
+
+# -----------------------------------------------------
+Ограничения доступа
+
+AllowAny - полный доступ
+isAuthenticated - только для авторизованных пользователей
+isAdminUser - только для Администратора
+
+
+

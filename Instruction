@@ -1,0 +1,191 @@
+1. DRF - это дополниение к фреймворку Django
+2. DRF - Django Rest Framework
+3. REST - Архитектурный стиль взаимодействия между Сервером и  различными клиентами.
+4. API - программный интерфейс (Application Programming Interface)
+5. DRF - инструмент для создания API нашего сайта с целью удалённого взаимодействия с ним
+6. GET запросе Сервер возвращает данный в JSON формате словарём.
+7. API - должен поддерживать множество возможностей :
+    1. Создание, чтение, изменение и удаление данных(сокращённо CRUD)
+    2. Проверку корректности передаваемых данных от клиента и защиту от возможный хакерских Атак
+    3. Авторизацию и Регистрацию пользователей
+    4. Права доступа к данным через API
+
+8. API  запрос обрабатываеться -> Маршрутизатором -> Представления -> Сериализатор (сердце DRF) -> БД
+
+
+
+-------------------------------------- 1 урок  Установка Django Rest Framework ------------------------------
+1. Создание представления
+2. Создание сериализаторов
+3. Маршрутизация
+
+
+1. Установка django
+2. django-admin startproject drfpage
+3. Сделать сразу миграции (migrate)
+4. Создать приложение
+5. В settings.py внести изменения
+6. В models.py сделать модельку Category и Animal
+7. Сделать миграции
+8. Создать супер пользователя
+9. Регистрация моделек
+10. Добавление В админке 2 категории и по 2 элемента в каждую категорию
+
+
+--------------------- Установка DRF -------------------
+11. Установка DRF pip install djangorestframework
+12. В settings.py зарегать приложение rest_framework
+13. В views.py создать класс class AnimalAPIView(generics.ListAPIView)
+14. в Приложении создать serializers.py
+15. В serializers.py создать class AnimalSerialazer(serializers.ModelSerializer):
+16. В главном urls.py сделать настройку и в приложении создать urls.py
+16. В urls.py прописать путь для класса AnimalAPIView
+16. Запустить сервер и в Адресную строку дописать api/v1/animal_list
+
+
+
+
+ ------------------------------------- 2 урок -----------------------------
+Задачи:
+1. Работа с Postman создание простого запроса
+2. Работа с Сериализатором
+
+1. В views.py  class AnimalAPIView(ListAPIView):  закоментить
+2.  В views.py  создать class AnimalAPIView(APIView):
+    в данном классе пропишет 2 метода get и post
+3. Скачать Postman
+4. В Postman попробовать получить данные и  отправить данный в json формате в базу данных
+    раздел body выбрать row прописать словарь с ключами title, content, category_id
+
+
+5. Сериализатор выполнять конвертирование в JSON или наоборот
+6. В serializers.py прописать класс class AnimalSerializer(serializers.ModelSerializer): # Сериализатор который работает с моделями
+7. В serializers.py прописать class AnimalModel: который Преобразовывает объекты класса в json формат
+8.  В serializers.py прописать функ def encode(): для кодирования
+9.  В serializers.py прописать функ def decode() для декодирования
+10. В терминале прописать команду py manage.py shell запустить оболочку shell для открытия оболочки
+11.  Прописать в терминале импорт  функции from drfapp.serializers import encode
+
+
+12.  В serializers.py прописать класс class AnimalSerializer(serializers.Serializer) и указать поля как у модельки
+13. В views.py в class AnimalAPIView(APIView): в методе get сделать подключение классу  AnimalSerialazer(serializers.Serializer)
+13. В views.py в class AnimalAPIView(APIView): в методе прописать логику для проверки и отправки данных
+
+
+
+
+ ------------------------------------- 3 урок -------------------------------------
+Задачи:
+1. Прописать сериализатор для добавления Записей
+2. Прописать сериализатор для изминения Записей
+
+1. В serializers.py в классе class AnimalSerializer(serializers.Serializer):
+   прописать метод def create(self, validated_data): для добавления записей
+2. Во views.py в классе class AnimalAPIView(APIView): сделать изменение для
+    сохранения данных
+3. В postmen попробовать отправить данные
+
+4. В serializers.py в классе class AnimalSerializer(serializers.Serializer):
+   прописать метод def update(self, instance, validated_data): для изменения данных
+5. Во views.py в классе class AnimalAPIView(APIView): написать метод def put(self, request, *args, **kwargs):
+    метод для изменения данных по id объекта.
+6. В urls.py прописать путь
+7. В postman  использовать PUT запрос указать в Адресной строке id объекта в
+    котором хотим внести изменения и прописываем новые данные
+
+8.  Дать на ДЗ: Во views.py в классе class AnimalAPIView(APIView): написать
+    метод def delete(self, request, *args, **kwargs): для удаления данных по id
+
+9. В serializers.py в class AnimalSerializer(serializers.Serializer):
+    Serializer заменить на ModelSerializer и пропись полей уже будит через class Meta
+10. В postman попробовать выполнить пост запрос только вместо category_id указать category
+
+
+
+11. Рассказать о классах API которые можно применять
+12. В views.py создать class AnimalAPIList(ListCreateAPIView): для получение и создания данных
+13. В urls.py прописать 2 пути данному классу
+14. Перейти на страницу http://127.0.0.1:8000/api/v1/animal_list/ и попробовать добавить
+    данные заполнив нижнию таблицу
+
+
+
+ ------------------------------------- 4 урок -------------------------------------
+
+Задачи:
+1. Внесение изменения данных наследуясь от Базовго класса
+2. Классы ViewSets служат во избежания повторного написания кода
+3. Routers - для модернизации прописи путей
+4. Как использовать Роутеры (Routers)
+
+1. В views.py создать class AnimalAPIUpdate(UpdateAPIView): для изменения данных по id
+2. В urls.py прописать путь для класса AnimalAPIUpdate(UpdateAPIView):
+3. В postman используя метод PUT попробовать изменить данные конкретных под определённым id
+4. Частое требование CRUD(От англ. Create, Read, Update, Delete)
+
+5. В views.py создать class AnimalAPIDetailView(RetrieveUpdateDestroyAPIView):
+    данный класс может: удалять, добавлять, изменять и получать данные
+6. В urls.py прописать путь для класса class AnimalAPIDetailView(RetrieveUpdateDestroyAPIView):
+7. В браузере в Адресной строке прописать путь и указать id конкретного поля
+8. Отключение API :  Что бы ни кто другой не мог прописать запрос в адресной с троке для получения данных
+9. В settings.py прописать настройки для защиты данных на странице от изменений REST_FRAMEWORK = {}
+
+10. Работа с классом ViewSet во views.py создать class AnimalViewSet(ModelViewSet):
+11. В urls.py прописать 2 пути
+12. В urls.py сделать импорт from rest_framework import routers
+    создать регистер на указанный класс вьюшки и перепрописать путь
+13. Тем самым один класс заменяет 3 записи классов (получение, изменение, добавление и удаление)
+14. ModelViewSet от которого мы наследуемся, он сам наследуется от готовых классов Миксинов
+    которые мы можем в ручную указать  в нашем классе которые нам понадобятся
+
+
+15. В Routers есть SimpleRouter и DefaultRouter в чём разница
+16. DefaultRouter предоставляет список маршрутов
+17. basename= префикс для указания имени маршрута, обязателен если не указан queryset
+18.  @action декоратор для определения маршрутов, во views.py в классах
+19. В адресной строке можно дописать category и мы получим список категорий
+
+20. Возвращение данных но не всех
+21. Во views.py в классе class AnimalViewSet прописать метод def get_queryset(self) который
+    будит возвращать указанное кол-во статей то тогда в классе AnimalViewSet не нужна переменная queryset
+    но в urls.py в router.register нужно прописать параметр basename='animal'
+
+22. Как создать свой класс Router в urls.py но желательно данный класс создавать в routers.py
+    который нужно создать в приложении.
+23. В папке приложения drfapp создать routers.py в данном файле создать класс class MyCustomerRouter(routers.SimpleRouter):
+24. В urls.py сделать импорт класса MyCustomerRouter и сделать регистрацию.
+
+
+ ------------------------------------- 2 урок -------------------------------------
+1.  Ограничения доступа (permissions)
+
+
+1. В models.py в класс class Animal(models.Model): добавить поле user
+2. Выполнить миграции
+3. Во views.py создать 3 класса:
+    class AnimalAPIList(ListCreateAPIView):
+    class AnimalAPIUpdate(UpdateAPIView):
+    class AnimalAPIDetailView(RetrieveUpdateDestroyAPIView):
+4. В urls.py прописать пути для данных классов
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
